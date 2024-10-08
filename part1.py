@@ -104,5 +104,5 @@ if __name__ == "__main__":
 
     mandarin_corpus, english_corpus = parta(train_path)
     m = partb(mandarin_corpus, english_corpus)
-    partc(m, mandarin_corpus, english_corpus, out_path, gold_path)
+    # partc(m, mandarin_corpus, english_corpus, out_path, gold_path)
 
