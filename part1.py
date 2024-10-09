@@ -4,7 +4,7 @@ from typing import Tuple
 import numpy as np
 import os
 import sys
-
+import time
 
 _cd_ = os.path.abspath(os.path.dirname(__file__))
 if _cd_ not in sys.path:
@@ -103,6 +103,9 @@ if __name__ == "__main__":
     gold_path = os.path.join(data_dir, "train.align")
 
     mandarin_corpus, english_corpus = parta(train_path)
+    time_before = time.time()
     m = partb(mandarin_corpus, english_corpus)
+    print(f"elapsed: {time.time() - time_before}")
+    # first run: 41.3
     # partc(m, mandarin_corpus, english_corpus, out_path, gold_path)
 
