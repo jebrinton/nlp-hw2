@@ -29,6 +29,8 @@ from lm import make_kneserney
 TranslatorType: Type = Type["Translator"]
 
 
+NUM_RULES_TO_KEEP = 75
+
 
 class Translator(object):
     def __init__(self: TranslatorType,
@@ -46,7 +48,7 @@ class Translator(object):
 
     def use_pretrained_tm(self: TranslatorType,
                           pretrained_ibm1: IBM1,
-                          num_rules_to_keep: int = 10,
+                          num_rules_to_keep: int = NUM_RULES_TO_KEEP, # default 10
                           default_unk_prob: float = 10e-100,
                           unknown_fs: Sequence[str] = None
                           ) -> None:
@@ -114,7 +116,7 @@ class Translator(object):
                   f_corpus: Sequence[Sequence[str]],
                   e_corpus: Sequence[Sequence[str]],
                   max_iter: int = 20,
-                  num_rules_to_keep: int = 10,
+                  num_rules_to_keep: int = NUM_RULES_TO_KEEP,
                   default_unk_prob: float = 10e-100,
                   converge_threshold: float = 1e-5,
                   unknown_fs: Sequence[str] = None,
@@ -138,7 +140,7 @@ class Translator(object):
                e_corpus: Sequence[Sequence[str]],
                lm_n: int = 2,
                tm_max_iter: int = int(1e6),
-               num_rules_to_keep: int = 10,
+               num_rules_to_keep: int = NUM_RULES_TO_KEEP,
                default_unk_prob: float = 10e-100,
                converge_threshold=1e-5,
                unknown_fs: Sequence[str] = None
@@ -161,7 +163,7 @@ class Translator(object):
                         aligned_fpath: str,
                         lm_n: int = 2,
                         tm_max_iter: int = int(1e6),
-                        num_rules_to_keep: int = 10,
+                        num_rules_to_keep: int = NUM_RULES_TO_KEEP,
                         default_unk_prob: float = 10e-100,
                         converge_threshold: float = 1e-5,
                         unknown_fs: Sequence[str] = None
@@ -184,7 +186,7 @@ class Translator(object):
                        e_corpus: Sequence[Sequence[str]],
                        lm_n: int = 2,
                        tm_max_iter: int = 100,
-                       num_rules_to_keep: int = 10,
+                       num_rules_to_keep: int = NUM_RULES_TO_KEEP,
                        default_unk_prob: int = 10e-100,
                        converge_threshold: float = 1e-5,
                        unknown_fs: Sequence[str] = None
@@ -308,7 +310,7 @@ class Translator(object):
             best_path += [cur_state]
             # transitions_in_path += transitions_parents[cur_state]
             cur_state = parents[cur_state]
-        best_path += fst.start
+        # best_path += fst.start
 
         best_path.reverse()
         # transitions_in_path.reverse()

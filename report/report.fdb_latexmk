@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1728954863 "/Users/jb/Desktop/nlp/nlp-hw2/report/report.tex" "report.pdf" "report" 1728954864 0
-  "/Users/jb/Desktop/nlp/nlp-hw2/report/report.tex" 1728954861 716 6ecc2d39307111c13218033aed271e37 ""
+["pdflatex"] 1728961205 "/Users/jb/Desktop/nlp/nlp-hw2/report/report.tex" "report.pdf" "report" 1728961205 0
+  "/Users/jb/Desktop/nlp/nlp-hw2/report/report.tex" 1728961205 4198 58d9497160abfa6b642bb76710c6d93f ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm" 1136768653 768 1321e9409b4137d6fb428ac9dc956269 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1248133631 35752 024fb6c41858982481f6968b5fc26508 ""
@@ -18,8 +18,8 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1681587557 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1681587474 7883455 ce80b7919265450ec24e747e9f825972 ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "report.aux" 1728954864 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
-  "report.tex" 1728954861 716 6ecc2d39307111c13218033aed271e37 ""
+  "report.aux" 1728961205 32 044b7f8fc9779af7531264e0c5c84b6d "pdflatex"
+  "report.tex" 1728961205 4198 58d9497160abfa6b642bb76710c6d93f ""
   (generated)
   "report.aux"
   "report.log"
