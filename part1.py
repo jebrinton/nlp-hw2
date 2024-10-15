@@ -5,6 +5,7 @@ import numpy as np
 import os
 import sys
 import time
+import pickle
 
 _cd_ = os.path.abspath(os.path.dirname(__file__))
 if _cd_ not in sys.path:
@@ -87,8 +88,15 @@ def partc(m: IBM1,
              mapping produced by 'align_f1'
     """
 
-    print("part1.partc: TODO complete me!")
-    return None
+    all_alignments = m.predict(mandarin_corpus, english_corpus)
+    with open(out_path, "w") as f:
+        for seq in all_alignments:
+            for alignment in seq:
+                f.write(f"{alignment[0]}-{alignment[1]} ")
+            # f.write(f"{(seq[-1])[0]}-{(seq[-1])[1]}\n")
+            f.write("\n")
+
+    return align_f1(test_path=out_path, gold_path=gold_path)
 
 if __name__ == "__main__":
     cd = os.path.abspath(os.path.dirname(__file__))
@@ -105,7 +113,9 @@ if __name__ == "__main__":
     mandarin_corpus, english_corpus = parta(train_path)
     time_before = time.time()
     m = partb(mandarin_corpus, english_corpus)
-    print(f"elapsed: {time.time() - time_before}")
-    # first run: 41.3
-    # partc(m, mandarin_corpus, english_corpus, out_path, gold_path)
 
+    # with open("data.pkl", 'wb') as file:
+    #     pickle.dump(m, file)
+    
+    print(f"elapsed: {time.time() - time_before}")
+    partc(m, mandarin_corpus, english_corpus, out_path, gold_path)

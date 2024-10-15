@@ -1,6 +1,7 @@
 # SYSTEM IMPORTS
 from collections.abc import Iterable, Mapping, Sequence
-from typing import Type, Tuple
+from collections import defaultdict
+from typing import Type, Tuple, List
 import collections
 import numpy as np
 import os
@@ -246,7 +247,83 @@ class Translator(object):
         """
         state_topological_order: Sequence[StateType] = fst_topsort(fst)
 
-        return None, None, None
+        # i = 0
+        # for tra in state_topological_order:
+        #     print(f"tra is {tra}")
+        #     if i == 50:
+        #         break
+        #     i += 1
+
+        # Viterbi
+
+        viterbi = defaultdict(lambda: float('-inf'))
+        # vit_nolog = defaultdict(float)
+        # par_nolog = {}
+        parents = {}
+        # transitions_parents = {}
+
+        viterbi[fst.start] = 1.0
+
+        for q_prime in state_topological_order:
+            incoming_transitions = fst.transitions_to[q_prime]
+            for transition in incoming_transitions:
+                # print(f"trn (q/a/r):   {transition.q}---{transition.a}---{transition.r}")
+
+                weight = fst.transitions_on[transition.a[0]][transition]
+                # print(f"wt: {weight} nplog: {np.log(weight)}")
+
+                # print(f"{viterbi[transition.q]} - {np.log(weight)} >?> {viterbi[q_prime]}")
+                if viterbi[transition.q] + np.log(weight) > viterbi[q_prime]:
+                    # print(f"q' is {q_prime} and transition.q is {transition.q}")
+                    viterbi[q_prime] = viterbi[transition.q] + np.log(weight)
+                    parents[q_prime] = transition.q
+                    # transitions_parents[q_prime] = transition.a
+
+                # if vit_nolog[transition.q] + weight > vit_nolog[q_prime]:
+                #     vit_nolog[q_prime] = vit_nolog[transition.q] + weight
+                #     par_nolog[q_prime] = transition.q
+
+        # backtrack from 
+        cur_state = fst.accept
+        best_path: Sequence[StateType] = [fst.accept]
+        # transitions_in_path: Sequence[StateType] = []
+
+        # for state in parents:
+        #     print(f"{str(state):34}<<<    {parents[state]}")
+        
+        # while cur_state[0] != fst.start[0] and len(cur_state) >= 2 and str(cur_state[1]) != START_TOKEN:
+        #     # for maki in cur_state:
+        #         # print(f"{maki}--", end="")
+        #     print(f"cs[]: {cur_state[0]} =/= {fst.start[0]}")
+        #     print()
+        #     best_path += cur_state
+        #     cur_state = par_nolog[cur_state]
+        # best_path += fst.start
+
+        while cur_state[0][0] != fst.start[0][0] and len(cur_state) >= 2 and str(cur_state[1]) != START_TOKEN:
+            # for maki in cur_state:
+                # print(f"{maki}--", end="")
+            # print(f"cs[]: {cur_state} =/= {fst.start}")
+            # print()
+            best_path += [cur_state]
+            # transitions_in_path += transitions_parents[cur_state]
+            cur_state = parents[cur_state]
+        best_path += fst.start
+
+        best_path.reverse()
+        # transitions_in_path.reverse()
+
+        # print(f"bp: {best_path}")
+        # print(f"tp: {transitions_in_path}")
+
+        # return (path of states from fst.start to fst.accept, 
+        # logprob of max path,
+        # transitions used in max path)
+
+        # note: best path is reversed right now
+        return best_path, viterbi[fst.accept], best_path
+    
+    # to improve model: change parameter of number of transitions!
 
     def compose(self: TranslatorType,
                 *list_of_fsts: Sequence[FST]

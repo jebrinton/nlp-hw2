@@ -69,7 +69,7 @@ if __name__ == "__main__":
     if not os.path.exists(generated_dir):
         os.makedirs(generated_dir)
 
-    train_path = os.path.join(data_dir, "train.zh-en")
+    train_path = os.path.join(data_dir, "train.zh-en") # actual train file: "train.zh-en"
     test_path = os.path.join(data_dir, "test.zh")
     gold_path = os.path.join(data_dir, "test.en")
 

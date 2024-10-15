@@ -190,7 +190,7 @@ class IBM1(object):
 
         # this will do everything you did in subsums
         self.tm.normalize_cond()
-        print("m", end="", flush=True)
+        # print("m", end="", flush=True)
 
     def _train(self: IBM1Type,
                f_corpus: Sequence[Sequence[str]],
